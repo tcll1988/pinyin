@@ -2,266 +2,504 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#cf4636">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="中国語ピンイン練習 — 単母音・複母音・子音・鼻母音・声調（真人録音）">
   <title>中国語ピンイン</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Yomogi&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23cf4636'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='34' fill='%23fff7ea' font-family='serif'%3E拼%3C/text%3E%3C/svg%3E">
 <style>
     :root{
-      --bg1:#ff9a9e;
-      --bg2:#fad0c4;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --card:rgba(255,255,255,.86);
-      --cardBorder:rgba(255,255,255,.55);
-      --shadow:0 10px 30px rgba(0,0,0,.15);
-      --shadow2:0 6px 16px rgba(0,0,0,.12);
-      --radius:18px;
-      --radiusSm:12px;
-      --btn:#111827;
-      --btnInk:#ffffff;
-      --accent:#ff3d71;
-      --good:#16a34a;
-      --warn:#f59e0b;
-      --bad:#ef4444;
-      --ring:rgba(59,130,246,.35);
+      --paper:#faf3e1;
+      --paper-dot:#e6d9bb;
+      --card:#fffdf6;
+      --card-2:#fbf3df;
+      --ink:#3a322a;
+      --ink-soft:#5f564a;
+      --muted:#9a8f79;
+      --stroke:#403830;
+      --red:#cf4636;
+      --red-deep:#a8382b;
+      --red-soft:#fbe7e1;
+      --gold:#e0a52a;
+      --gold-deep:#b9821a;
+      --gold-soft:#f7ecc9;
+      --hl:#ffe487;
+      --teal:#1c8985;
+      --teal-deep:#136460;
+      --teal-soft:#dcefed;
+      --green:#4e9d5f;
+      --green-deep:#347a45;
+      --green-soft:#e6f2e1;
+      --bad:#cf4636;
+      --bad-soft:#fbe7e1;
+      --sh:3px 3px 0 rgba(64,56,48,.16);
+      --sh-lg:5px 5px 0 rgba(64,56,48,.15);
+      --wob1:16px 22px 18px 20px/20px 18px 22px 16px;
+      --wob2:22px 16px 20px 18px/18px 20px 16px 22px;
+      --wob3:20px 18px 24px 16px/16px 24px 18px 20px;
+      --hand:"Yomogi","Noto Sans SC","Hiragino Maru Gothic ProN",sans-serif;
+      --brush:"Ma Shan Zheng","Yomogi","Noto Sans SC",cursive;
+      --pyf:"Noto Sans","Noto Sans SC",sans-serif;
+      --ring:rgba(28,137,133,.4);
+      --good:var(--green);
+      --accent:var(--red);
+      --btn:var(--ink);
+      --btnInk:#fff7ea;
+      --radius:var(--wob1);
+      --radiusSm:var(--wob2);
+      --shadow:var(--sh-lg);
+      --shadow2:var(--sh);
+      --cardBorder:var(--stroke);
+      --bg1:var(--paper);
+      --bg2:var(--paper-dot);
     }
 
-    /* グローバルスタイル */
+    *,*::before,*::after{ box-sizing:border-box; }
+
+    html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+    }
+
     body{
       margin:0;
       padding:0;
-      font-family:"Noto Sans JP","Noto Sans SC",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family:var(--hand);
       color:var(--ink);
-      background: radial-gradient(1200px 900px at 10% 0%, rgba(255,255,255,.35), transparent 60%),
-                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      background-color:var(--paper);
+      background-image:
+        radial-gradient(var(--paper-dot) 1.4px, transparent 1.5px);
+      background-size:22px 22px;
       min-height:100vh;
+      min-height:100dvh;
       display:flex;
       flex-direction:column;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      line-height:1.75;
     }
 
-    /* 画面全体の余白（ノッチ対応） */
     .content{
       width:100%;
-      max-width:900px;
+      max-width:920px;
       margin:0 auto;
-      padding:clamp(12px,3vw,24px);
-      padding-bottom:calc(clamp(12px,3vw,24px) + env(safe-area-inset-bottom));
-      box-sizing:border-box;
+      padding:clamp(14px,3vw,26px);
+      padding-bottom:calc(clamp(14px,3vw,26px) + env(safe-area-inset-bottom, 0px));
       flex:1;
     }
 
-    /* ページ切り替え */
-    .page{ display:none; opacity:0; transform:translateY(10px) scale(.995); }
-    .page.active{ display:block; animation:pageIn .22s ease-out forwards; }
-    .page.animate-in{ animation:pageIn .22s ease-out forwards; }
+    .page{ display:none; opacity:0; }
+    .page.active{
+      display:block;
+      animation:pageIn .28s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .page.animate-in{ animation:pageIn .28s cubic-bezier(.2,.7,.2,1) forwards; }
 
     @keyframes pageIn{
-      from{ opacity:0; transform:translateY(10px) scale(.995); filter:blur(2px); }
-      to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+      from{ opacity:0; transform:translateY(14px) rotate(-.2deg); }
+      to{ opacity:1; transform:none; }
     }
 
-    /* カード */
     .card{
+      position:relative;
       background:var(--card);
-      border:1px solid var(--cardBorder);
-      border-radius:var(--radius);
-      padding:clamp(16px,3.2vw,26px);
-      box-shadow:var(--shadow);
-      backdrop-filter:saturate(160%) blur(10px);
-      -webkit-backdrop-filter:saturate(160%) blur(10px);
+      border:2.5px solid var(--stroke);
+      border-radius:var(--wob1);
+      padding:clamp(18px,3.4vw,28px);
+      box-shadow:var(--sh-lg);
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border:2px dashed rgba(64,56,48,.18);
+      border-radius:var(--wob2);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .card-home{
+      text-align:center;
+      padding-top:clamp(22px,4vw,36px);
+    }
+    .card-home::after{
+      content:"音";
+      position:absolute;
+      right:-.06em; top:-.15em;
+      font-family:var(--brush);
+      font-size:clamp(6rem,22vw,11rem);
+      color:var(--red);
+      opacity:.06;
+      line-height:1;
+      pointer-events:none;
+      z-index:0;
+      transform:rotate(-8deg);
     }
 
-    h2{
+    .home-head{ margin-bottom:8px; }
+    .seal{
+      width:72px; height:72px;
+      margin:0 auto 10px;
+      display:grid; place-items:center;
+      border:3px solid var(--red);
+      border-radius:48% 52% 47% 53%/53% 47% 53% 47%;
+      color:var(--red);
+      font-family:var(--brush);
+      font-size:2.4rem;
+      transform:rotate(6deg);
+      background:var(--red-soft);
+      box-shadow:2px 2px 0 rgba(64,56,48,.14);
+    }
+    .kicker{
+      margin:0 0 8px;
+      font-size:.82rem;
+      letter-spacing:.28em;
+      text-indent:.28em;
+      color:var(--gold-deep);
+      font-weight:700;
+    }
+
+    h1,h2{
       margin:0 0 12px;
-      font-size:clamp(20px,2.2vw,26px);
-      letter-spacing:.2px;
+      font-family:var(--hand);
+      font-size:clamp(1.55rem,3.4vw,2rem);
+      font-weight:700;
+      letter-spacing:.04em;
+      line-height:1.35;
+      color:var(--ink);
+    }
+    h1{
+      font-family:var(--brush);
+      font-size:clamp(2.4rem,8vw,3.6rem);
+      font-weight:400;
+      color:var(--red-deep);
+      text-shadow:2px 2px 0 rgba(224,165,42,.25);
+      letter-spacing:.08em;
+    }
+    h2{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:8px 12px;
+      padding-bottom:10px;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='9'%3E%3Cpath d='M0 5 Q15 1 30 5 T60 5 T90 5 T120 5' fill='none' stroke='%23e0a52a' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") left bottom repeat-x;
     }
     h3{
-      margin:12px 0 10px;
-      font-size:clamp(16px,1.8vw,18px);
+      margin:18px 0 10px;
+      font-family:var(--hand);
+      font-size:1.12rem;
+      font-weight:700;
+      display:inline-block;
+      padding:0 2px 5px;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='8'%3E%3Cpath d='M0 4 Q11 1 22 4 T45 4 T68 4 T90 4' fill='none' stroke='%23cf4636' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") left bottom repeat-x;
     }
     p{
       margin:10px 0;
-      line-height:1.75;
-      color:rgba(17,24,39,.92);
+      line-height:1.85;
+      color:var(--ink-soft);
+      font-weight:500;
     }
 
-    /* 戻る */
+    .home-lead{
+      margin:0 auto 18px;
+      max-width:28em;
+      color:var(--ink-soft);
+      font-weight:600;
+      font-size:1rem;
+    }
+
     .back{
       appearance:none;
-      border:0;
-      background:rgba(17,24,39,.12);
-      color:rgba(17,24,39,.92);
-      font-weight:600;
-      padding:10px 14px;
-      border-radius:999px;
+      -webkit-appearance:none;
+      border:2.5px solid var(--stroke);
+      background:var(--card);
+      color:var(--ink);
+      font-weight:700;
+      font-size:.95rem;
+      font-family:var(--hand);
+      padding:8px 16px;
+      border-radius:14px 11px 13px 12px/12px 13px 11px 14px;
       cursor:pointer;
       margin:0 0 12px;
       display:inline-flex;
       align-items:center;
       gap:8px;
-      transition:transform .12s ease, background .2s ease, box-shadow .2s ease;
+      box-shadow:var(--sh);
+      transition:transform .12s ease, box-shadow .15s ease, background .15s ease;
       touch-action:manipulation;
+      -webkit-user-select:none;
       user-select:none;
+      min-height:44px;
     }
-    .back:hover{ background:rgba(17,24,39,.16); box-shadow:var(--shadow2); }
-    .back:active{ transform:scale(.98); }
+    .back:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(64,56,48,.2); color:var(--red-deep); }
+    .back:active{ transform:translate(1px,1px); box-shadow:1px 1px 0 rgba(64,56,48,.16); }
+    .back:focus-visible{
+      outline:0;
+      box-shadow:0 0 0 3px var(--teal), var(--sh);
+    }
 
-    /* ホームのナビ */
     .nav-btn{
       width:100%;
       text-align:left;
-      margin:10px 0;
-      padding:14px 14px;
-      border:0;
-      border-radius:var(--radiusSm);
+      margin:9px 0;
+      padding:13px 16px;
+      border:2.5px solid var(--stroke);
+      border-radius:15px 12px 14px 13px/13px 14px 12px 15px;
       cursor:pointer;
-      font-size:1.02em;
+      font-size:1.05em;
       font-weight:700;
-      color:var(--btnInk);
-      background: linear-gradient(135deg, rgba(17,24,39,.92), rgba(17,24,39,.82));
-      box-shadow:0 10px 22px rgba(0,0,0,.16);
-      transition: transform .14s ease, box-shadow .2s ease, filter .2s ease;
+      font-family:var(--hand);
+      color:var(--ink);
+      background:var(--card-2);
+      box-shadow:var(--sh);
+      transition: transform .14s ease, box-shadow .15s ease, background .15s ease;
       position:relative;
       overflow:hidden;
       touch-action:manipulation;
+      -webkit-user-select:none;
       user-select:none;
+      min-height:48px;
     }
-    .nav-btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
-    .nav-btn:active{ transform: translateY(0) scale(.985); }
+    .nav-btn:nth-child(even){ border-radius:12px 16px 13px 15px/15px 13px 16px 12px; }
+    .nav-btn:hover{
+      transform:translate(-2px,-2px);
+      box-shadow:5px 5px 0 rgba(64,56,48,.18);
+      background:var(--gold-soft);
+      color:var(--red-deep);
+    }
+    .nav-btn:active{ transform:translate(1px,1px); box-shadow:1px 1px 0 rgba(64,56,48,.14); }
     .nav-btn:focus-visible{
       outline:0;
-      box-shadow:0 0 0 4px var(--ring), 0 10px 22px rgba(0,0,0,.16);
+      box-shadow:0 0 0 3px var(--teal), var(--sh);
     }
 
-    /* 説明 */
     .explanation{
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(0,0,0,.06);
-      border-left:6px solid rgba(255,61,113,.75);
-      border-radius:14px;
-      padding:12px 12px;
-      color:rgba(17,24,39,.88);
+      background:var(--gold-soft);
+      border:2.5px dashed var(--gold-deep);
+      border-radius:var(--wob2);
+      padding:13px 15px;
+      color:var(--ink-soft);
       font-weight:600;
+      font-size:.95rem;
     }
 
-    /* ピンイン一覧 */
     .pinyin-list{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
+      gap:11px;
+      margin-top:14px;
+      justify-content:flex-start;
     }
+    .card-home .pinyin-list{ justify-content:center; }
+
     .pinyin{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-width:52px;
-      padding:10px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.9);
-      border:1px solid rgba(0,0,0,.08);
-      box-shadow:0 6px 14px rgba(0,0,0,.10);
+      min-width:56px;
+      min-height:48px;
+      padding:10px 14px;
+      border-radius:16px 20px 15px 19px/19px 15px 20px 16px;
+      background:var(--card);
+      border:2.5px solid var(--stroke);
+      box-shadow:var(--sh);
       cursor:pointer;
-      font-weight:800;
-      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+      font-family:var(--pyf);
+      font-weight:700;
+      font-size:1.2rem;
+      color:var(--ink);
+      transition: transform .12s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+      -webkit-user-select:none;
       user-select:none;
       touch-action:manipulation;
       position:relative;
       overflow:hidden;
     }
-    .pinyin:hover{ transform: translateY(-1px); box-shadow:0 10px 18px rgba(0,0,0,.14); }
-    .pinyin:active{ transform: scale(.985); }
+    .pinyin:nth-child(3n){ border-radius:20px 15px 19px 16px/16px 19px 15px 20px; transform:rotate(-1deg); }
+    .pinyin:nth-child(4n){ transform:rotate(1deg); }
+    .pinyin:hover{
+      transform:translate(-2px,-2px) rotate(0);
+      box-shadow:5px 5px 0 rgba(64,56,48,.2);
+      background:var(--gold-soft);
+      color:var(--red-deep);
+    }
+    .pinyin:active{ transform:translate(1px,1px) scale(.98); box-shadow:1px 1px 0 rgba(64,56,48,.14); }
     .pinyin.is-playing{
-      background:rgba(255,61,113,.12);
-      border-color:rgba(255,61,113,.35);
-      box-shadow:0 12px 22px rgba(255,61,113,.18);
+      background:var(--red-soft);
+      border-color:var(--red);
+      color:var(--red-deep);
+      box-shadow:0 0 0 3px var(--card), 0 0 0 6px var(--red);
+      transform:rotate(0) scale(1.04);
+      animation:playPulse .9s ease-in-out infinite;
+    }
+    .pinyin.is-error{
+      background:var(--bad-soft);
+      border-color:var(--bad);
+      color:var(--red-deep);
     }
     .pinyin:focus-visible{
       outline:0;
-      box-shadow:0 0 0 4px var(--ring), 0 10px 18px rgba(0,0,0,.14);
+      box-shadow:0 0 0 3px var(--teal), var(--sh);
+    }
+    @keyframes playPulse{
+      0%,100%{ box-shadow:0 0 0 3px var(--card), 0 0 0 6px rgba(207,70,54,.55); }
+      50%{ box-shadow:0 0 0 3px var(--card), 0 0 0 10px rgba(207,70,54,.15); }
     }
 
-    /* 再生ボタン（例文など） */
     .play-button, .play-quiz-btn{
       appearance:none;
-      border:0;
-      border-radius:999px;
-      padding:10px 14px;
+      -webkit-appearance:none;
+      border:2.5px solid var(--stroke);
+      border-radius:13px 10px 12px 11px/11px 12px 10px 13px;
+      padding:9px 16px;
       cursor:pointer;
-      font-weight:800;
-      color:#fff;
-      background: linear-gradient(135deg, rgba(22,163,74,.95), rgba(22,163,74,.78));
-      box-shadow:0 10px 18px rgba(0,0,0,.15);
-      transition:transform .12s ease, filter .2s ease, box-shadow .2s ease;
+      font-weight:700;
+      font-size:.95rem;
+      font-family:var(--hand);
+      color:#fff7ea;
+      background:var(--teal);
+      box-shadow:var(--sh);
+      transition:transform .12s ease, box-shadow .15s ease, background .15s ease;
       touch-action:manipulation;
+      -webkit-user-select:none;
       user-select:none;
       position:relative;
       overflow:hidden;
+      min-height:44px;
+      vertical-align:middle;
+      margin:3px 2px;
     }
-    .play-button:hover, .play-quiz-btn:hover{ filter:brightness(1.05); transform: translateY(-1px); }
-    .play-button:active, .play-quiz-btn:active{ transform: scale(.985); }
-    .play-button.is-playing{
-      filter:saturate(1.1);
-      box-shadow:0 14px 24px rgba(22,163,74,.22);
+    .play-button:hover, .play-quiz-btn:hover{
+      transform:translate(-1px,-1px);
+      box-shadow:4px 4px 0 rgba(64,56,48,.2);
+      background:var(--teal-deep);
+    }
+    .play-button:active, .play-quiz-btn:active{
+      transform:translate(1px,1px);
+      box-shadow:1px 1px 0 rgba(64,56,48,.16);
+    }
+    .play-button.is-playing, .play-quiz-btn.is-playing{
+      background:var(--red);
+      box-shadow:0 0 0 3px var(--red-soft), var(--sh);
+    }
+    .play-button:focus-visible, .play-quiz-btn:focus-visible{
+      outline:0;
+      box-shadow:0 0 0 3px var(--gold), var(--sh);
+    }
+    .play-button:disabled, .play-quiz-btn:disabled, .quiz-options button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none !important;
     }
 
-    /* クイズ */
+    .example-line{
+      margin:12px 0;
+      line-height:1.95;
+      color:var(--ink-soft);
+    }
+    .example-line strong{
+      display:inline;
+      color:var(--ink);
+      font-weight:700;
+    }
+
     .quiz-section{
-      margin-top:14px;
-      padding:14px;
-      border-radius:var(--radiusSm);
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(0,0,0,.06);
+      margin-top:18px;
+      padding:16px;
+      border-radius:var(--wob2);
+      background:var(--card-2);
+      border:2.5px solid var(--stroke);
       text-align:center;
+      box-shadow:var(--sh);
     }
     .quiz-instructions{
       margin:10px 0 12px;
-      color:rgba(17,24,39,.78);
+      color:var(--muted);
       font-weight:600;
+    }
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      align-items:center;
+      margin-bottom:4px;
+    }
+    .quiz-score{
+      font-size:.9rem;
+      font-weight:700;
+      color:var(--teal-deep);
+      background:var(--card);
+      border:2px solid var(--teal);
+      border-radius:999px;
+      padding:4px 12px;
+      min-width:7em;
     }
     .quiz-options{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:10px;
-      margin-top:12px;
+      gap:11px;
+      margin-top:14px;
     }
     .quiz-options button{
-      border:0;
-      border-radius:14px;
+      border:2.5px solid var(--stroke);
+      border-radius:14px 11px 13px 12px/12px 13px 11px 14px;
       padding:12px 10px;
-      font-weight:900;
+      font-weight:700;
+      font-size:1.15rem;
+      font-family:var(--pyf);
       cursor:pointer;
-      background:rgba(17,24,39,.92);
-      color:#fff;
-      box-shadow:0 10px 18px rgba(0,0,0,.14);
-      transition:transform .12s ease, filter .2s ease, box-shadow .2s ease;
+      background:var(--card);
+      color:var(--ink);
+      box-shadow:2px 2px 0 rgba(64,56,48,.14);
+      transition:transform .12s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
       touch-action:manipulation;
+      -webkit-user-select:none;
       user-select:none;
       position:relative;
       overflow:hidden;
+      min-height:50px;
     }
-    .quiz-options button:hover{ filter:brightness(1.05); transform: translateY(-1px); }
-    .quiz-options button:active{ transform: scale(.985); }
+    .quiz-options button:hover{
+      transform:translate(-1px,-1px);
+      box-shadow:4px 4px 0 rgba(64,56,48,.18);
+      background:var(--gold-soft);
+    }
+    .quiz-options button:active{ transform:translate(1px,1px); }
+    .quiz-options button:focus-visible{
+      outline:0;
+      box-shadow:0 0 0 3px var(--teal), 2px 2px 0 rgba(64,56,48,.14);
+    }
+    .quiz-options button.is-correct{
+      background:var(--green-soft);
+      border-color:var(--green-deep);
+      color:var(--green-deep);
+    }
+    .quiz-options button.is-wrong{
+      background:var(--bad-soft);
+      border-color:var(--bad);
+      color:var(--red-deep);
+    }
 
     .quiz-result{
       margin-top:12px;
-      font-weight:900;
-      color:rgba(17,24,39,.92);
+      font-weight:700;
+      font-family:var(--hand);
+      color:var(--ink);
       min-height:1.6em;
+      font-size:1.05rem;
     }
-    .quiz-result.pop{ animation: pop .22s ease-out; }
+    .quiz-result.pop{ animation: pop .28s ease-out; }
     @keyframes pop{
-      from{ transform: scale(.98); opacity:.6; }
+      from{ transform: scale(.94); opacity:.5; }
       to{ transform: scale(1); opacity:1; }
     }
 
-    /* まとめ表 */
     #pinyinSummaryTable{
       width:100%;
       border-collapse:separate;
@@ -269,99 +507,166 @@
       margin-top:10px;
     }
     #pinyinSummaryTable td{
-      background:rgba(255,255,255,.9);
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:14px;
+      background:var(--card);
+      border:2.5px solid var(--stroke);
+      border-radius:16px 20px 15px 19px/19px 15px 20px 16px;
       padding:10px 8px;
       text-align:center;
-      box-shadow:0 8px 16px rgba(0,0,0,.10);
+      box-shadow:var(--sh);
     }
     .category-header td{
-      background:rgba(17,24,39,.9);
-      color:#fff;
-      font-weight:900;
-      border-radius:14px;
+      background:var(--red);
+      color:#fff7ea;
+      font-weight:700;
+      font-family:var(--hand);
+      font-size:1.05rem;
+      border-radius:var(--wob3);
+      border-color:var(--stroke);
+      letter-spacing:.08em;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:calc(18px + env(safe-area-inset-bottom, 0px));
+      transform:translateX(-50%) translateY(12px);
+      z-index:100;
+      background:var(--ink);
+      color:#fff7ea;
+      padding:11px 18px;
+      border-radius:14px 11px 13px 12px/12px 13px 11px 14px;
+      border:2.5px solid var(--stroke);
+      font-weight:700;
+      font-family:var(--hand);
+      font-size:.92rem;
+      box-shadow:4px 4px 0 rgba(64,56,48,.25);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      max-width:90vw;
+      text-align:center;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
     }
 
     footer{
       text-align:center;
-      padding:10px;
-      background:rgba(0,0,0,0.55);
-      color:#fff;
-      font-size:0.85em;
+      padding:14px 12px;
+      padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+      background:transparent;
+      color:var(--muted);
+      font-size:0.9em;
+      font-family:var(--hand);
+      font-weight:700;
+      border-top:2.5px solid var(--stroke);
+      background:var(--card);
     }
 
-    /* リップル（クリック波紋） */
     .ripple{
       position:absolute;
       border-radius:999px;
       transform:scale(0);
       animation:ripple .55s ease-out;
-      background:rgba(255,255,255,.45);
+      background:rgba(224,165,42,.35);
       pointer-events:none;
     }
     @keyframes ripple{
       to{ transform:scale(1); opacity:0; }
     }
 
-    /* 画面が狭い時 */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
     @media (max-width:520px){
       .quiz-options{ grid-template-columns:1fr; }
-      .nav-btn{ font-size:1em; padding:14px 12px; }
-      .pinyin{ min-width:46px; padding:10px 10px; }
+      .nav-btn{ font-size:1em; padding:13px 12px; }
+      .pinyin{ min-width:48px; padding:10px 11px; font-size:1.1rem; }
+      #pinyinSummaryTable{ border-spacing:6px; }
+      .seal{ width:64px; height:64px; font-size:2.1rem; }
     }
 
-    /* ダークモード */
     @media (prefers-color-scheme: dark){
       :root{
-        --ink:#f3f4f6;
-        --muted:#cbd5e1;
-        --card:rgba(17,24,39,.62);
-        --cardBorder:rgba(255,255,255,.12);
+        --paper:#1c1914;
+        --paper-dot:#2e2920;
+        --card:#26211a;
+        --card-2:#2f2920;
+        --ink:#f3e8d4;
+        --ink-soft:#d4c6ad;
+        --muted:#a8987c;
+        --stroke:#c9b896;
+        --red:#e06a58;
+        --red-deep:#f08a78;
+        --red-soft:#3a2420;
+        --gold:#e8b84a;
+        --gold-deep:#f0c86a;
+        --gold-soft:#3a3220;
+        --hl:#5a4a20;
+        --teal:#4cb3ae;
+        --teal-deep:#7dcdc8;
+        --teal-soft:#1a3331;
+        --green:#6db87a;
+        --green-deep:#8fd09a;
+        --green-soft:#1e3224;
+        --bad:#e06a58;
+        --bad-soft:#3a2420;
+        --sh:3px 3px 0 rgba(0,0,0,.35);
+        --sh-lg:5px 5px 0 rgba(0,0,0,.32);
+        --btnInk:#1c1914;
       }
-      body{
-        background: radial-gradient(900px 700px at 10% 0%, rgba(255,255,255,.10), transparent 60%),
-                    linear-gradient(135deg, rgba(17,24,39,.95), rgba(99,102,241,.35));
-      }
-      p{ color:rgba(243,244,246,.92); }
-      .explanation{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:rgba(243,244,246,.90); }
-      .back{ background:rgba(255,255,255,.12); color:rgba(243,244,246,.92); }
-      .pinyin{ background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.14); color:rgba(243,244,246,.92); }
-      #pinyinSummaryTable td{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.14); }
-      .quiz-section{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); }
+      body{ color-scheme:dark; }
+      h1{ color:var(--gold); text-shadow:2px 2px 0 rgba(0,0,0,.35); }
+      .nav-btn{ color:var(--ink); }
+      .play-button, .play-quiz-btn{ color:#1c1914; }
+      .category-header td{ color:#1c1914; }
+      footer{ color:var(--muted); }
     }
 
-    /* アニメーションを抑制 */
     @media (prefers-reduced-motion: reduce){
-      .page.active, .page.animate-in, .quiz-result.pop, .ripple{ animation:none !important; }
-      .nav-btn, .back, .pinyin, .play-button, .play-quiz-btn, .quiz-options button{ transition:none !important; }
+      .page.active, .page.animate-in, .quiz-result.pop, .ripple, .pinyin.is-playing{
+        animation:none !important;
+      }
+      .page.active{ opacity:1; }
+      .nav-btn, .back, .pinyin, .play-button, .play-quiz-btn, .quiz-options button, .toast{
+        transition:none !important;
+      }
     }
+
   </style>
 </head>
 <body>
+  <a class="sr-only" href="#home">メインコンテンツへ</a>
   <div class="content">
-    <!-- ホーム画面 -->
-    <div id="home" class="page active">
-      <div class="card">
-        <h2>中国語のピンイン</h2>
-        <button class="nav-btn" onclick="showSection('section1')">1. 単母音（基本の母音）</button>
-        <button class="nav-btn" onclick="showSection('section2')">2. 複母音</button>
-        <button class="nav-btn" onclick="showSection('section3')">3. 子音（その１）</button>
-        <button class="nav-btn" onclick="showSection('section4')">4. 声調の変化</button>
-        <button class="nav-btn" onclick="showSection('section5')">5. 子音（その２）</button>
-        <button class="nav-btn" onclick="showSection('section6')">6. 鼻母音</button>
-        <button class="nav-btn" onclick="showSection('section7')">7. 声調の変化（例）</button>
-        <button class="nav-btn" onclick="showSection('section8')">8. 声調符号の付け方</button>
-        <button class="nav-btn" onclick="showSection('section9')">9. 儿化</button>
-        <button class="nav-btn" onclick="showSection('section10')">10. 隔音符号</button>
-        <button class="nav-btn" onclick="showSection('section11')">11. ピンインのまとめ</button>
-<a class="back-link" href="../happy.html" style="display: block; width: fit-content; margin: 20px auto; padding: 10px 20px; background-color: #00796b; color: #fff; text-align: center; border-radius: 5px; text-decoration: none;">戻る</a>
- </div>
+    <!-- ホーム -->
+    <div id="home" class="page active" role="region" aria-label="ホーム">
+      <div class="card card-home">
+        <div class="home-head">
+          <div class="seal" aria-hidden="true">拼</div>
+          <p class="kicker">中国語 · 発音ノート</p>
+          <h1>ピンイン</h1>
+          <p class="home-lead">手書きノートのように、タップして聞いて、クイズで耳を鍛えましょう。<br>発音はすべて真人録音です。</p>
+        </div>
+        <button type="button" class="nav-btn" data-goto="section1">1. 単母音（基本の母音）</button>
+        <button type="button" class="nav-btn" data-goto="section2">2. 複母音</button>
+        <button type="button" class="nav-btn" data-goto="section3">3. 子音（その１）</button>
+        <button type="button" class="nav-btn" data-goto="section4">4. 声調の変化</button>
+        <button type="button" class="nav-btn" data-goto="section5">5. 子音（その２）</button>
+        <button type="button" class="nav-btn" data-goto="section6">6. 鼻母音</button>
+        <button type="button" class="nav-btn" data-goto="section7">7. 声調の聞き比べ</button>
+        <button type="button" class="nav-btn" data-goto="section8">8. 声調符号の付け方</button>
+        <button type="button" class="nav-btn" data-goto="section9">9. 儿化</button>
+        <button type="button" class="nav-btn" data-goto="section10">10. 隔音符号</button>
+        <button type="button" class="nav-btn" data-goto="section11">11. ピンインのまとめ</button>
+      </div>
     </div>
-    
-    <!-- Section 1: 単母音 -->
-    <div id="section1" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 1 -->
+    <div id="section1" class="page" role="region" aria-label="単母音" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>1. 単母音（基本の母音）</h2>
         <p>
@@ -379,21 +684,24 @@
           <span class="pinyin" data-sound="e">e</span>
           <span class="pinyin" data-sound="i">i</span>
           <span class="pinyin" data-sound="u">u</span>
-          <span class="pinyin" data-sound="v">ü</span>
+          <span class="pinyin" data-sound="v" title="ü">ü</span>
         </div>
-        <div class="quiz-section">
+        <div class="quiz-section" data-quiz-unit="section1">
           <h3>発音練習クイズ</h3>
-          <p class="quiz-instructions">使用説明: 再生ボタンを押して音声を聴き、正しい拼音を選んでください。</p>
-          <button class="play-quiz-btn" onclick="startQuiz(false)">再生</button>
-          <div class="quiz-options"></div>
-          <p class="quiz-result"></p>
+          <p class="quiz-instructions">再生を押して音声を聴き、正しいピンインを選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
         </div>
       </div>
     </div>
-    
-    <!-- Section 2: 複母音 -->
-    <div id="section2" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 2 -->
+    <div id="section2" class="page" role="region" aria-label="複母音" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>2. 複母音（二つ以上の母音の組み合わせ）</h2>
         <p>
@@ -410,31 +718,32 @@
           <span class="pinyin" data-sound="ie">ie</span>
           <span class="pinyin" data-sound="ua">ua</span>
           <span class="pinyin" data-sound="uo">uo</span>
-          <span class="pinyin" data-sound="ve">üe</span>
+          <span class="pinyin" data-sound="ve" title="üe">üe</span>
           <span class="pinyin" data-sound="iao">iao</span>
           <span class="pinyin" data-sound="iou">iou</span>
           <span class="pinyin" data-sound="uai">uai</span>
           <span class="pinyin" data-sound="uei">uei</span>
           <span class="pinyin" data-sound="er">er</span>
         </div>
-        <div class="quiz-section">
+        <div class="quiz-section" data-quiz-unit="section2">
           <h3>発音練習クイズ</h3>
-          <p class="quiz-instructions">使用説明: 再生ボタンを押して音声を聴き、正しい拼音を選んでください。</p>
-          <button class="play-quiz-btn" onclick="startQuiz(false)">再生</button>
-          <div class="quiz-options"></div>
-          <p class="quiz-result"></p>
+          <p class="quiz-instructions">再生を押して音声を聴き、正しいピンインを選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
         </div>
       </div>
     </div>
-    
-    <!-- Section 3: 子音（その１） -->
-    <div id="section3" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 3 -->
+    <div id="section3" class="page" role="region" aria-label="子音その1" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>3. 子音（その１）</h2>
-        <p>
-          b(o), p(o), m(o), f(o), d(e), t(e), n(e), l(e), g(e), k(e), h(o)
-        </p>
+        <p>b(o), p(o), m(o), f(o), d(e), t(e), n(e), l(e), g(e), k(e), h(o)</p>
         <p class="explanation">説明: 基本の子音は発音の土台です。正しい口の形と発声方法を確認しながら練習してください。</p>
         <div class="pinyin-list">
           <span class="pinyin" data-sound="b">b</span>
@@ -449,48 +758,55 @@
           <span class="pinyin" data-sound="k">k</span>
           <span class="pinyin" data-sound="h">h</span>
         </div>
-        <div class="quiz-section">
+        <div class="quiz-section" data-quiz-unit="section3">
           <h3>発音練習クイズ</h3>
-          <p class="quiz-instructions">使用説明: 再生ボタンを押して音声を聴き、正しい拼音を選んでください。</p>
-          <button class="play-quiz-btn" onclick="startQuiz(false)">再生</button>
-          <div class="quiz-options"></div>
-          <p class="quiz-result"></p>
+          <p class="quiz-instructions">再生を押して音声を聴き、正しいピンインを選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
         </div>
       </div>
     </div>
-    
-    <!-- Section 4: 声調の変化（例の追加） -->
-    <div id="section4" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 4 -->
+    <div id="section4" class="page" role="region" aria-label="声調の変化" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>4. 声調の変化</h2>
-        <p>
+        <p class="example-line">
           <strong>第三声の変調</strong><br>
-          中国語の二つの第三声の音節が連続すると、最初の音節は通常第二声に発音する。<br>
-          例：nǐ　hǎo → ní　hǎo<br><br>
+          二つの第三声が連続すると、最初の音節は通常第二声に。<br>
+          例：nǐ　hǎo → ní　hǎo<br>
+          <button type="button" class="play-button" data-play="ni3hao3">原形 nǐ hǎo</button>
+          <button type="button" class="play-button" data-play="ni2hao3">変調 ní hǎo</button>
+        </p>
+        <p class="example-line">
           <strong>「一」の変調</strong><br>
-          数を数える場合：第一声を保つ。例：「一」（yī） 
-          <button class="play-button" onclick="playSound('yi')">再生</button><br>
-          「一」+第四声＝「yí」　例：「一半」（yí bàn） 
-          <button class="play-button" onclick="playSound('yiban')">再生</button><br>
-          「一」+第一声、第二声、第三声＝「yì」　例：「一起」（yì qǐ） 
-          <button class="play-button" onclick="playSound('yiqi')">再生</button><br><br>
+          数を数える場合：第一声を保つ。例：「一」（yī）
+          <button type="button" class="play-button" data-play="yi">再生</button><br>
+          「一」+第四声＝「yí」　例：「一半」（yí bàn）
+          <button type="button" class="play-button" data-play="yiban">再生</button><br>
+          「一」+第一〜三声＝「yì」　例：「一起」（yì qǐ）
+          <button type="button" class="play-button" data-play="yiqi">再生</button>
+        </p>
+        <p class="example-line">
           <strong>「不」の変調</strong><br>
-          「不」+第四声＝「bú」　例：「不是」（bú shì） 
-          <button class="play-button" onclick="playSound('bushi')">再生</button>
+          「不」+第四声＝「bú」　例：「不是」（bú shì）
+          <button type="button" class="play-button" data-play="bushi">再生</button>
         </p>
         <p class="explanation">説明: 連続する声調の変化や、「一」「不」の変調は中国語発音の重要ルールです。しっかり理解し、反復練習しましょう。</p>
       </div>
     </div>
-    
-    <!-- Section 5: 子音（その２） -->
-    <div id="section5" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 5 -->
+    <div id="section5" class="page" role="region" aria-label="子音その2" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>5. 子音（その２）</h2>
-        <p>
-          j(i), q(i), x(i), z(i), c(i), s(i), zh(i), ch(i), sh(i), r(i)
-        </p>
+        <p>j(i), q(i), x(i), z(i), c(i), s(i), zh(i), ch(i), sh(i), r(i)</p>
         <p class="explanation">説明: 子音の細かい発音に慣れるため、口の形と舌の位置をしっかり意識して、丁寧に練習してください。</p>
         <div class="pinyin-list">
           <span class="pinyin" data-sound="j">j</span>
@@ -504,19 +820,22 @@
           <span class="pinyin" data-sound="sh">sh</span>
           <span class="pinyin" data-sound="r">r</span>
         </div>
-        <div class="quiz-section">
+        <div class="quiz-section" data-quiz-unit="section5">
           <h3>発音練習クイズ</h3>
-          <p class="quiz-instructions">使用説明: 再生ボタンを押して音声を聴き、正しい拼音を選んでください。</p>
-          <button class="play-quiz-btn" onclick="startQuiz(false)">再生</button>
-          <div class="quiz-options"></div>
-          <p class="quiz-result"></p>
+          <p class="quiz-instructions">再生を押して音声を聴き、正しいピンインを選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
         </div>
       </div>
     </div>
-    
-    <!-- Section 6: 鼻母音 -->
-    <div id="section6" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 6 -->
+    <div id="section6" class="page" role="region" aria-label="鼻母音" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>6. 鼻母音（鼻にかかる音）</h2>
         <p>
@@ -531,8 +850,8 @@
           <span class="pinyin" data-sound="in">in</span>
           <span class="pinyin" data-sound="uan">uan</span>
           <span class="pinyin" data-sound="uen">uen</span>
-          <span class="pinyin" data-sound="van">üan</span>
-          <span class="pinyin" data-sound="vn">ün</span>
+          <span class="pinyin" data-sound="van" title="üan">üan</span>
+          <span class="pinyin" data-sound="vn" title="ün">ün</span>
           <span class="pinyin" data-sound="ang">ang</span>
           <span class="pinyin" data-sound="eng">eng</span>
           <span class="pinyin" data-sound="ing">ing</span>
@@ -542,43 +861,69 @@
           <span class="pinyin" data-sound="iang">iang</span>
           <span class="pinyin" data-sound="iong">iong</span>
         </div>
-        <div class="quiz-section">
+        <div class="quiz-section" data-quiz-unit="section6">
           <h3>発音練習クイズ</h3>
-          <p class="quiz-instructions">使用説明: 再生ボタンを押して音声を聴き、正しい拼音を選んでください。</p>
-          <button class="play-quiz-btn" onclick="startQuiz(false)">再生</button>
-          <div class="quiz-options"></div>
-          <p class="quiz-result"></p>
+          <p class="quiz-instructions">再生を押して音声を聴き、正しいピンインを選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
         </div>
       </div>
     </div>
-    
-    <!-- Section 7: 声調の変化（例の追加） -->
-    <div id="section7" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 7: 声調聞き比べ（旧版の重複を解消し、録音を活用） -->
+    <div id="section7" class="page" role="region" aria-label="声調の聞き比べ" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
-        <h2>7. 声調の変化</h2>
-        <p>
-          <strong>第三声の変調</strong><br>
-          中国語の二つの第三声の音節が連続すると、最初の音節は通常第二声に発音する。<br>
-          例：nǐ　hǎo → ní　hǎo<br><br>
-          <strong>「一」の変調</strong><br>
-          数を数える場合：第一声を保つ。例：「一」（yī）　
-          <button class="play-button" onclick="playSound('yi')">再生</button><br>
-          「一」+第四声＝「yí」　例：「一半」（yí bàn）　
-          <button class="play-button" onclick="playSound('yiban')">再生</button><br>
-          「一」+第一声、第二声、第三声＝「yì」　例：「一起」（yì qǐ）　
-          <button class="play-button" onclick="playSound('yiqi')">再生</button><br><br>
-          <strong>「不」の変調</strong><br>
-          「不」+第四声＝「bú」　例：「不是」（bú shì）　
-          <button class="play-button" onclick="playSound('bushi')">再生</button>
+        <h2>7. 声調の聞き比べ</h2>
+        <p class="explanation">同じ「ma」でも声調で意味が変わります。録音を聞き比べて耳を鍛えましょう。</p>
+
+        <h3>四声（mā má mǎ mà）</h3>
+        <div class="pinyin-list">
+          <span class="pinyin" data-sound="ma1" data-label="mā">mā 1</span>
+          <span class="pinyin" data-sound="ma2" data-label="má">má 2</span>
+          <span class="pinyin" data-sound="ma3" data-label="mǎ">mǎ 3</span>
+          <span class="pinyin" data-sound="ma4" data-label="mà">mà 4</span>
+        </div>
+        <p class="example-line">
+          まとめて聴く：
+          <button type="button" class="play-button" data-play="ma1234">1234 順</button>
+          <button type="button" class="play-button" data-play="ma1432">1432 順</button>
+          <button type="button" class="play-button" data-play="ma2143">2143 順</button>
         </p>
-        <p class="explanation">説明: 連続する声調の変化や、「一」「不」の変調は中国語発音の重要ルールです。しっかり理解し、反復練習しましょう。</p>
+
+        <h3>第三声の連続</h3>
+        <p class="example-line">
+          <button type="button" class="play-button" data-play="ni3hao3">nǐ hǎo（表記）</button>
+          <button type="button" class="play-button" data-play="ni2hao3">ní hǎo（実際）</button>
+        </p>
+
+        <h3>よく似た声調ペア</h3>
+        <p class="example-line">
+          <button type="button" class="play-button" data-play="haoda34-laoda34">好大 / 老大</button>
+          <button type="button" class="play-button" data-play="huida22-huida43">回答 / 会大？</button>
+          <button type="button" class="play-button" data-play="meili34-meili44">美丽 / 魅力</button>
+        </p>
+
+        <div class="quiz-section" data-quiz-unit="section7">
+          <h3>声調クイズ</h3>
+          <p class="quiz-instructions">再生を押して、聞こえた声調（mā / má / mǎ / mà）を選んでください。</p>
+          <div class="quiz-toolbar">
+            <button type="button" class="play-quiz-btn" data-quiz-play>▶ 再生</button>
+            <span class="quiz-score" data-quiz-score aria-live="polite"></span>
+          </div>
+          <div class="quiz-options" data-quiz-options></div>
+          <p class="quiz-result" data-quiz-result aria-live="polite"></p>
+        </div>
       </div>
     </div>
-    
-    <!-- Section 8: 声調符号の付け方（クイズ削除） -->
-    <div id="section8" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 8 -->
+    <div id="section8" class="page" role="region" aria-label="声調符号" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>8. 声調符号の付け方</h2>
         <p>
@@ -591,304 +936,538 @@
         <p class="explanation">説明: 発音と文字の対応を理解するため、符号の付け方をしっかり確認してください。</p>
       </div>
     </div>
-    
-    <!-- Section 9: 儿化（ｒ）の説明（クイズ削除） -->
-    <div id="section9" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 9 -->
+    <div id="section9" class="page" role="region" aria-label="儿化" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>9. 儿化</h2>
-        <p>
+        <p class="example-line">
           “儿化”とは、単語の末尾に「儿」を付けて発音する現象で、北京方言でよく見られる。<br>
-          例：花儿（huāer）→ 花　
-          <button class="play-button" onclick="playSound('huar')">再生</button><br>
-          例：门儿（méner）→ 門　
-          <button class="play-button" onclick="playSound('menr')">再生</button>
+          例：花儿（huār）→ 花
+          <button type="button" class="play-button" data-play="huar">再生</button><br>
+          例：门儿（ménr）→ 門
+          <button type="button" class="play-button" data-play="menr">再生</button>
         </p>
         <p class="explanation">説明: 末尾の「儿」を付ける際のリズムと発音を意識して練習してください。</p>
       </div>
     </div>
-    
-    <!-- Section 10: 隔音符号（'）の説明（クイズ削除） -->
-    <div id="section10" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 10 -->
+    <div id="section10" class="page" role="region" aria-label="隔音符号" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>10. 隔音符号（区切り記号）</h2>
-        <p>
+        <p class="example-line">
           “a”、“o”、“e”で始まる音節の前に他の音節が来る場合、隔音符号（'）を入れて二つの音節を明確に分ける。<br>
-          例：xī'ān（西安）　
-          <button class="play-button" onclick="playSound('xi,an')">再生</button><br>
-          と xiān（先）　
-          <button class="play-button" onclick="playSound('xian')">再生</button>
+          例：xī'ān（西安）
+          <button type="button" class="play-button" data-play="xi,an">再生</button><br>
+          と xiān（先）
+          <button type="button" class="play-button" data-play="xian">再生</button>
         </p>
         <p class="explanation">説明: 正しい区切りを把握することで、発音の流れが理解しやすくなります。</p>
       </div>
     </div>
-    
-    <!-- Section 11: ピンインのまとめ（カテゴリ別） -->
-    <div id="section11" class="page">
-      <button class="back" onclick="backHome()">戻る</button>
+
+    <!-- Section 11 -->
+    <div id="section11" class="page" role="region" aria-label="まとめ" hidden>
+      <button type="button" class="back" data-goto="home">← 戻る</button>
       <div class="card">
         <h2>11. ピンインのまとめ</h2>
-        <p class="explanation">説明: 以下はこれまで学んだピンインを「単母音」「複母音」「子音」「鼻母音」「声調」の5カテゴリに分類したものです。</p>
+        <p class="explanation">これまで学んだピンインをカテゴリ別にまとめました。タップで発音を確認できます。</p>
         <table id="pinyinSummaryTable">
-          <tbody id="pinyinSummaryBody">
-            <!-- JavaScriptで内容を生成 -->
-          </tbody>
+          <tbody id="pinyinSummaryBody"></tbody>
         </table>
       </div>
     </div>
-    
   </div>
-  <footer>
-    楽しい中国語
-  </footer>
-  
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <footer>楽しい中国語 · 手書きピンインノート</footer>
+
   <script>
-    // 各単元のクイズ用データ（単元ごとに対象のピンイン）
-    const unitQuizData = {
-      "section1": ["a", "o", "e", "i", "u", "v"],
-      "section2": ["ai", "ei", "ao", "ou", "ia", "ie", "ua", "uo", "ve", "iao", "iou", "uai", "uei", "er"],
-      "section3": ["b", "p", "m", "f", "d", "t", "n", "l", "g", "k", "h"],
-      "section4": ["mā", "má", "mǎ", "mà"],
-      "section5": ["j", "q", "x", "z", "c", "s", "zh", "ch", "sh", "r"],
-      "section6": ["an", "en", "ian", "in", "uan", "uen", "van", "vn", "ang", "eng", "ing", "ong", "uang", "ueng", "iang", "iong"],
-      "section7": ["nǐ", "hǎo"],
-      "section8": ["dǎn", "shòu"],
-      "section9": ["huāer", "méner"],
-      "section10": ["xī'ān", "xiān"]
-    };
-    
-    // ピンインのまとめ用カテゴリ（使用するのは：section1, section2, section3+section5, section6, section4）
-    const summaryCategories = {
-      "単母音": ["section1"],
-      "複母音": ["section2"],
-      "子音": ["section3", "section5"],
-      "鼻母音": ["section6"],
-      "声調": ["section4"]
-    };
-    
-    let currentSectionId = "";
-    let currentAudio = null;
+(function () {
+  'use strict';
 
-    // 波紋（リップル）エフェクト：軽量でスマホでも快適
-    function addRipple(el){
-      if(!el || (el.dataset && el.dataset.ripple === "1")) return;
-      try{ el.dataset.ripple = "1"; }catch(e){}
+  /* ---------- データ ---------- */
+  // file: 音声ファイル名（拡張子なし） / label: 表示・クイズ用
+  const unitQuizData = {
+    section1: [
+      { file: 'a', label: 'a' }, { file: 'o', label: 'o' }, { file: 'e', label: 'e' },
+      { file: 'i', label: 'i' }, { file: 'u', label: 'u' }, { file: 'v', label: 'ü' }
+    ],
+    section2: [
+      { file: 'ai', label: 'ai' }, { file: 'ei', label: 'ei' }, { file: 'ao', label: 'ao' },
+      { file: 'ou', label: 'ou' }, { file: 'ia', label: 'ia' }, { file: 'ie', label: 'ie' },
+      { file: 'ua', label: 'ua' }, { file: 'uo', label: 'uo' }, { file: 've', label: 'üe' },
+      { file: 'iao', label: 'iao' }, { file: 'iou', label: 'iou' }, { file: 'uai', label: 'uai' },
+      { file: 'uei', label: 'uei' }, { file: 'er', label: 'er' }
+    ],
+    section3: [
+      { file: 'b', label: 'b' }, { file: 'p', label: 'p' }, { file: 'm', label: 'm' },
+      { file: 'f', label: 'f' }, { file: 'd', label: 'd' }, { file: 't', label: 't' },
+      { file: 'n', label: 'n' }, { file: 'l', label: 'l' }, { file: 'g', label: 'g' },
+      { file: 'k', label: 'k' }, { file: 'h', label: 'h' }
+    ],
+    section5: [
+      { file: 'j', label: 'j' }, { file: 'q', label: 'q' }, { file: 'x', label: 'x' },
+      { file: 'z', label: 'z' }, { file: 'c', label: 'c' }, { file: 's', label: 's' },
+      { file: 'zh', label: 'zh' }, { file: 'ch', label: 'ch' }, { file: 'sh', label: 'sh' },
+      { file: 'r', label: 'r' }
+    ],
+    section6: [
+      { file: 'an', label: 'an' }, { file: 'en', label: 'en' }, { file: 'ian', label: 'ian' },
+      { file: 'in', label: 'in' }, { file: 'uan', label: 'uan' }, { file: 'uen', label: 'uen' },
+      { file: 'van', label: 'üan' }, { file: 'vn', label: 'ün' }, { file: 'ang', label: 'ang' },
+      { file: 'eng', label: 'eng' }, { file: 'ing', label: 'ing' }, { file: 'ong', label: 'ong' },
+      { file: 'uang', label: 'uang' }, { file: 'ueng', label: 'ueng' }, { file: 'iang', label: 'iang' },
+      { file: 'iong', label: 'iong' }
+    ],
+    section7: [
+      { file: 'ma1', label: 'mā' }, { file: 'ma2', label: 'má' },
+      { file: 'ma3', label: 'mǎ' }, { file: 'ma4', label: 'mà' }
+    ]
+  };
 
-      el.addEventListener("pointerdown", (e) => {
-        const rect = el.getBoundingClientRect();
-        const d = Math.max(rect.width, rect.height);
-        const r = document.createElement("span");
-        r.className = "ripple";
-        r.style.width = r.style.height = d + "px";
-        r.style.left = (e.clientX - rect.left - d/2) + "px";
-        r.style.top  = (e.clientY - rect.top  - d/2) + "px";
-        el.appendChild(r);
-        r.addEventListener("animationend", () => r.remove(), { once:true });
-      }, { passive:true });
+  const summaryCategories = {
+    '単母音': ['section1'],
+    '複母音': ['section2'],
+    '子音': ['section3', 'section5'],
+    '鼻母音': ['section6'],
+    '声調': ['section7']
+  };
+
+  /* ---------- 状態 ---------- */
+  let currentSectionId = 'home';
+  let currentAudio = null;
+  let currentPlayingEl = null;
+  let currentQuiz = null; // { file, label }
+  let quizLocked = false;
+  const quizStats = {}; // unitId -> { right, total }
+
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+  }
+
+  function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  /* ---------- 音声（単一 Audio・クロスブラウザ） ---------- */
+  function getAudio() {
+    if (!currentAudio) {
+      currentAudio = new Audio();
+      currentAudio.preload = 'auto';
+    }
+    return currentAudio;
+  }
+
+  function clearPlayingUI() {
+    if (currentPlayingEl) {
+      currentPlayingEl.classList.remove('is-playing');
+      currentPlayingEl = null;
+    }
+    document.querySelectorAll('.is-playing').forEach(function (el) {
+      el.classList.remove('is-playing');
+    });
+  }
+
+  function stopAudio() {
+    var a = currentAudio;
+    if (!a) return;
+    try {
+      a.onended = null;
+      a.onerror = null;
+      a.pause();
+      a.currentTime = 0;
+    } catch (e) {}
+    clearPlayingUI();
+  }
+
+  /** ファイル名 → sound/xxx.mp3（カンマ等を安全にエンコード） */
+  function soundUrl(fileBase) {
+    // encodeURI はスラッシュを残し、カンマ等をエンコード
+    return 'sound/' + encodeURI(fileBase) + '.mp3';
+  }
+
+  /**
+   * 再生
+   * @param {string} fileBase 拡張子なし
+   * @param {Element|null} uiEl 再生中スタイルを付ける要素
+   * @returns {Promise<boolean>}
+   */
+  function playSoundFile(fileBase, uiEl) {
+    if (!fileBase) return Promise.resolve(false);
+
+    // 同じ要素をもう一度押したら停止（既存仕様）
+    if (
+      uiEl &&
+      currentPlayingEl === uiEl &&
+      currentAudio &&
+      !currentAudio.paused &&
+      !currentAudio.ended
+    ) {
+      stopAudio();
+      return Promise.resolve(true);
     }
 
-    let currentQuiz = null;
-    
-    // ページ切替処理
-    function showSection(sectionId) {
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active', 'animate-in');
-      });
-      const target = document.getElementById(sectionId);
-      target.classList.add('active');
-      // アニメーションを確実に再生（同じページへ戻った時のため）
-      target.classList.remove('animate-in');
-      void target.offsetWidth;
-      target.classList.add('animate-in');
+    stopAudio();
+    var a = getAudio();
+    var url = soundUrl(fileBase);
 
-      currentSectionId = sectionId;
-
-      // まとめ表は表示時に生成
-      if (sectionId === 'section11') {
-        generateSummaryTable();
+    return new Promise(function (resolve) {
+      var settled = false;
+      function done(ok) {
+        if (settled) return;
+        settled = true;
+        resolve(!!ok);
       }
 
-      // 画面上部へ（録画授業の視聴でも迷子になりにくい）
-      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      try {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-      } catch(e) {
-        window.scrollTo(0, 0);
+      a.src = url;
+      if (uiEl) {
+        uiEl.classList.remove('is-error');
+        uiEl.classList.add('is-playing');
+        currentPlayingEl = uiEl;
       }
-    }
-    
-    function backHome() {
-      showSection('home');
-      currentSectionId = "";
-    }
-    
-    // 共通のピンインクリック処理
-    function attachPinyinClickListener(elem) {
-      if (!elem || elem.dataset.bound === "1") return;
-      elem.dataset.bound = "1";
-      elem.setAttribute("role", "button");
-      elem.setAttribute("tabindex", "0");
 
-      const play = () => {
-        const soundName = elem.getAttribute('data-sound');
-        if (!soundName) return;
-
-        // 同じ要素を再クリックしたら停止（既存仕様を維持）
-        if (currentAudio && currentAudio.currentButton === elem && !currentAudio.paused) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-          currentAudio.currentButton = null;
-          elem.classList.remove('is-playing');
-          return;
-        }
-
-        if (currentAudio && !currentAudio.paused) {
-          if (currentAudio.currentButton) currentAudio.currentButton.classList.remove('is-playing');
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-        }
-
-        currentAudio = new Audio('sound/' + soundName + '.mp3');
-        currentAudio.currentButton = elem;
-
-        elem.classList.add('is-playing');
-        currentAudio.addEventListener('ended', () => elem.classList.remove('is-playing'), { once: true });
-        currentAudio.addEventListener('pause', () => elem.classList.remove('is-playing'), { once: true });
-
-        currentAudio.play();
+      a.onended = function () {
+        clearPlayingUI();
+        done(true);
+      };
+      a.onerror = function () {
+        clearPlayingUI();
+        if (uiEl) uiEl.classList.add('is-error');
+        toast('音声を再生できません（' + fileBase + '）');
+        done(false);
       };
 
-      elem.addEventListener('click', play);
+      var p = a.play();
+      if (p && typeof p.then === 'function') {
+        p.then(function () { /* playing */ }).catch(function (err) {
+          clearPlayingUI();
+          // 自動再生ブロックなど
+          toast('再生がブロックされました。もう一度タップしてください');
+          done(false);
+        });
+      }
+    });
+  }
 
-      // キーボード操作（PC/タブレットの授業でも使いやすい）
-      elem.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          play();
+  /* 互換 API: 旧 onclick="playSound('x')" 用にも使える */
+  window.playSound = function (filename, el) {
+    return playSoundFile(filename, el || null);
+  };
+
+  /* ---------- リップル ---------- */
+  function addRipple(el) {
+    if (!el || el.getAttribute('data-ripple') === '1') return;
+    if (prefersReducedMotion()) return;
+    el.setAttribute('data-ripple', '1');
+    el.addEventListener('pointerdown', function (e) {
+      if (e.button != null && e.button !== 0) return;
+      var rect = el.getBoundingClientRect();
+      var d = Math.max(rect.width, rect.height);
+      var r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.width = r.style.height = d + 'px';
+      var x = (e.clientX != null ? e.clientX : rect.left + rect.width / 2);
+      var y = (e.clientY != null ? e.clientY : rect.top + rect.height / 2);
+      r.style.left = (x - rect.left - d / 2) + 'px';
+      r.style.top = (y - rect.top - d / 2) + 'px';
+      el.appendChild(r);
+      r.addEventListener('animationend', function () {
+        if (r.parentNode) r.parentNode.removeChild(r);
+      });
+      // animationend が来ない環境向け
+      setTimeout(function () {
+        if (r.parentNode) r.parentNode.removeChild(r);
+      }, 700);
+    }, { passive: true });
+  }
+
+  /* ---------- ページ切替 ---------- */
+  function showSection(sectionId) {
+    if (!sectionId) sectionId = 'home';
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+      var page = pages[i];
+      var on = page.id === sectionId;
+      page.classList.remove('active', 'animate-in');
+      page.hidden = !on;
+      if (on) {
+        page.classList.add('active');
+        // 再アニメ
+        void page.offsetWidth;
+        page.classList.add('animate-in');
+      }
+    }
+    currentSectionId = sectionId;
+    stopAudio();
+    quizLocked = false;
+
+    if (sectionId === 'section11') generateSummaryTable();
+
+    try {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+
+    // ハッシュ（共有・戻るボタン）
+    try {
+      var hash = sectionId === 'home' ? '' : '#' + sectionId;
+      if (history.replaceState) {
+        history.replaceState(null, '', hash || location.pathname + location.search);
+      } else if (!hash) {
+        location.hash = '';
+      } else {
+        location.hash = sectionId;
+      }
+    } catch (e) {}
+  }
+
+  function backHome() {
+    showSection('home');
+  }
+  window.showSection = showSection;
+  window.backHome = backHome;
+
+  /* ---------- ピンインボタン ---------- */
+  function attachPinyinClickListener(elem) {
+    if (!elem || elem.getAttribute('data-bound') === '1') return;
+    elem.setAttribute('data-bound', '1');
+    elem.setAttribute('role', 'button');
+    if (!elem.hasAttribute('tabindex')) elem.setAttribute('tabindex', '0');
+
+    var label = elem.getAttribute('data-label') || elem.textContent.trim();
+    var sound = elem.getAttribute('data-sound');
+    if (sound && !elem.getAttribute('aria-label')) {
+      elem.setAttribute('aria-label', label + ' を再生');
+    }
+
+    function play() {
+      var soundName = elem.getAttribute('data-sound');
+      if (!soundName) return;
+      playSoundFile(soundName, elem);
+    }
+
+    elem.addEventListener('click', play);
+    elem.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        play();
+      }
+    });
+    addRipple(elem);
+  }
+
+  document.querySelectorAll('.pinyin').forEach(attachPinyinClickListener);
+
+  /* ナビ・戻る・再生ボタン（委譲） */
+  document.addEventListener('click', function (e) {
+    var gotoBtn = e.target.closest('[data-goto]');
+    if (gotoBtn) {
+      e.preventDefault();
+      showSection(gotoBtn.getAttribute('data-goto'));
+      return;
+    }
+    var playBtn = e.target.closest('[data-play]');
+    if (playBtn) {
+      e.preventDefault();
+      playSoundFile(playBtn.getAttribute('data-play'), playBtn);
+      return;
+    }
+    var quizPlay = e.target.closest('[data-quiz-play]');
+    if (quizPlay) {
+      e.preventDefault();
+      var section = quizPlay.closest('.page');
+      var quiz = quizPlay.closest('.quiz-section');
+      if (section && quiz) startQuiz(section.id, quiz, false);
+    }
+  });
+
+  document.querySelectorAll('.nav-btn, .back, .play-button, .play-quiz-btn').forEach(addRipple);
+
+  /* ---------- クイズ ---------- */
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function updateQuizScore(unitId, quizRoot) {
+    var s = quizStats[unitId] || { right: 0, total: 0 };
+    var el = quizRoot.querySelector('[data-quiz-score]');
+    if (el) {
+      el.textContent = s.total ? ('正解 ' + s.right + ' / ' + s.total) : '';
+    }
+  }
+
+  function startQuiz(sectionId, quizRoot, keepQuestion) {
+    var data = unitQuizData[sectionId];
+    if (!data || !data.length || !quizRoot) return;
+
+    quizLocked = false;
+    if (!quizStats[sectionId]) quizStats[sectionId] = { right: 0, total: 0 };
+
+    var instructions = quizRoot.querySelector('.quiz-instructions');
+    if (instructions) instructions.style.display = 'none';
+
+    var optionsDiv = quizRoot.querySelector('[data-quiz-options]');
+    var resultP = quizRoot.querySelector('[data-quiz-result]');
+    var playBtn = quizRoot.querySelector('[data-quiz-play]');
+    if (!optionsDiv || !resultP) return;
+
+    resultP.textContent = '';
+    resultP.classList.remove('pop');
+
+    if (!keepQuestion || !currentQuiz) {
+      currentQuiz = data[Math.floor(Math.random() * data.length)];
+    }
+
+    // 選択肢（最大4、データが少ない場合はその数）
+    var optCount = Math.min(4, data.length);
+    var options = [currentQuiz];
+    var guard = 0;
+    while (options.length < optCount && guard < 80) {
+      guard++;
+      var opt = data[Math.floor(Math.random() * data.length)];
+      var exists = options.some(function (o) { return o.file === opt.file; });
+      if (!exists) options.push(opt);
+    }
+    options = shuffle(options);
+
+    optionsDiv.innerHTML = '';
+    options.forEach(function (option) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = option.label;
+      btn.setAttribute('data-file', option.file);
+      addRipple(btn);
+      btn.addEventListener('click', function () {
+        if (quizLocked || !currentQuiz) return;
+        quizLocked = true;
+        quizStats[sectionId].total++;
+
+        var buttons = optionsDiv.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].disabled = true;
+          if (buttons[i].getAttribute('data-file') === currentQuiz.file) {
+            buttons[i].classList.add('is-correct');
+          }
+        }
+
+        if (option.file === currentQuiz.file) {
+          quizStats[sectionId].right++;
+          btn.classList.add('is-correct');
+          var encouragements = ['素晴らしい！', 'その調子！', 'よくできました！', 'お見事です！'];
+          resultP.textContent = encouragements[Math.floor(Math.random() * encouragements.length)];
+          resultP.classList.add('pop');
+          updateQuizScore(sectionId, quizRoot);
+          setTimeout(function () { startQuiz(sectionId, quizRoot, false); }, 1600);
+        } else {
+          btn.classList.add('is-wrong');
+          resultP.textContent = '残念、正解は「' + currentQuiz.label + '」です。もう一度聴いてみましょう。';
+          resultP.classList.add('pop');
+          updateQuizScore(sectionId, quizRoot);
+          // 同じ問題を維持して再生し直せる
+          setTimeout(function () {
+            quizLocked = false;
+            for (var j = 0; j < buttons.length; j++) {
+              buttons[j].disabled = false;
+              buttons[j].classList.remove('is-wrong', 'is-correct');
+            }
+            playSoundFile(currentQuiz.file, playBtn);
+          }, 1400);
         }
       });
-
-      // 波紋エフェクト
-      addRipple(elem);
-    }
-    
-    document.querySelectorAll('.pinyin').forEach(elem => {
-      attachPinyinClickListener(elem);
+      optionsDiv.appendChild(btn);
     });
 
-    // 主要ボタンにもリップルを付与
-    document.querySelectorAll('.nav-btn, .back, .play-button, .play-quiz-btn').forEach(btn => addRipple(btn));
-    
-    // 再生ボタン用の関数
-    function playSound(filename) {
-      if (!filename) return;
+    updateQuizScore(sectionId, quizRoot);
+    playSoundFile(currentQuiz.file, playBtn);
+  }
 
-      // 既存の音声が再生中なら止める（重なり再生を防止）
-      if (currentAudio && !currentAudio.paused) {
-        if (currentAudio.currentButton) currentAudio.currentButton.classList.remove('is-playing');
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
+  // 旧 API 互換
+  window.startQuiz = function (keepQuestion) {
+    var section = document.getElementById(currentSectionId);
+    if (!section) return;
+    var quiz = section.querySelector('.quiz-section');
+    if (quiz) startQuiz(currentSectionId, quiz, !!keepQuestion);
+  };
 
-      const btn = (window.event && window.event.currentTarget) ? window.event.currentTarget : null;
-
-      currentAudio = new Audio('sound/' + filename + '.mp3');
-      currentAudio.currentButton = null;
-
-      if (btn) btn.classList.add('is-playing');
-      currentAudio.addEventListener('ended', () => { if (btn) btn.classList.remove('is-playing'); }, { once: true });
-      currentAudio.addEventListener('pause', () => { if (btn) btn.classList.remove('is-playing'); }, { once: true });
-
-      currentAudio.play();
-      addRipple(btn);
-    }
-    
-    // クイズ処理：keepQuestionがtrueなら同じ問題を維持
-    function startQuiz(keepQuestion) {
-      if (!currentSectionId || !unitQuizData[currentSectionId]) return;
-      const currentSection = document.getElementById(currentSectionId);
-      const quizSection = currentSection.querySelector('.quiz-section');
-      const instructions = quizSection.querySelector('.quiz-instructions');
-      if (instructions) instructions.style.display = "none";
-      const quizOptionsDiv = quizSection.querySelector('.quiz-options');
-      const quizResultP = quizSection.querySelector('.quiz-result');
-      
-      quizResultP.innerText = "";
-      const data = unitQuizData[currentSectionId];
-      if (!keepQuestion) {
-        const randomIndex = Math.floor(Math.random() * data.length);
-        currentQuiz = data[randomIndex];
-      }
-      
-      if (currentAudio && !currentAudio.paused) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-      currentAudio = new Audio('sound/' + currentQuiz + '.mp3');
-      currentAudio.play();
-      
-      let options = [currentQuiz];
-      while (options.length < 4) {
-        const opt = data[Math.floor(Math.random() * data.length)];
-        if (!options.includes(opt)) options.push(opt);
-      }
-      options.sort(() => 0.5 - Math.random());
-      
-      quizOptionsDiv.innerHTML = "";
-      options.forEach(option => {
-        const btn = document.createElement('button');
-        btn.innerText = option;
-        addRipple(btn);
-        btn.onclick = function() {
-          if (option === currentQuiz) {
-            const encouragements = ["素晴らしい！", "その調子！", "よくできました！", "お見事です！"];
-            const encouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
-            quizResultP.innerText = encouragement;
-            quizResultP.classList.remove('pop');
-            void quizResultP.offsetWidth;
-            quizResultP.classList.add('pop');
-            setTimeout(() => { startQuiz(false); }, 2000);
-          } else {
-            quizResultP.innerText = "残念、正解は " + currentQuiz + " です。もう一度挑戦してください。";
-            quizResultP.classList.remove('pop');
-            void quizResultP.offsetWidth;
-            quizResultP.classList.add('pop');
-            setTimeout(() => { startQuiz(true); }, 2000);
+  /* ---------- まとめ表 ---------- */
+  function generateSummaryTable() {
+    var body = document.getElementById('pinyinSummaryBody');
+    if (!body) return;
+    var columns = 5;
+    var html = '';
+    var catNames = Object.keys(summaryCategories);
+    for (var c = 0; c < catNames.length; c++) {
+      var category = catNames[c];
+      var sections = summaryCategories[category];
+      var combined = [];
+      var seen = {};
+      for (var s = 0; s < sections.length; s++) {
+        var list = unitQuizData[sections[s]] || [];
+        for (var k = 0; k < list.length; k++) {
+          var item = list[k];
+          if (!seen[item.file]) {
+            seen[item.file] = true;
+            combined.push(item);
           }
-        };
-        quizOptionsDiv.appendChild(btn);
-      });
-    }
-    
-    // セクション11用：ピンインまとめ（カテゴリ別）
-    function generateSummaryTable() {
-      let tableHTML = "";
-      const columns = 5;
-      for (const [category, sections] of Object.entries(summaryCategories)) {
-        let combined = [];
-        sections.forEach(sectionId => {
-          if (unitQuizData[sectionId]) combined = combined.concat(unitQuizData[sectionId]);
-        });
-        combined = Array.from(new Set(combined));
-        tableHTML += `<tr class="category-header"><td colspan="${columns}">${category}</td></tr>`;
-        for (let i = 0; i < combined.length; i += columns) {
-          tableHTML += "<tr>";
-          for (let j = i; j < i + columns; j++) {
-            if (combined[j]) {
-              tableHTML += `<td><span class="pinyin" data-sound="${combined[j]}">${combined[j]}</span></td>`;
-            } else {
-              tableHTML += "<td></td>";
-            }
-          }
-          tableHTML += "</tr>";
         }
       }
-      document.getElementById("pinyinSummaryBody").innerHTML = tableHTML;
-      document.querySelectorAll("#pinyinSummaryBody .pinyin").forEach(elem => {
-        attachPinyinClickListener(elem);
-      });
+      html += '<tr class="category-header"><td colspan="' + columns + '">' + category + '</td></tr>';
+      for (var i = 0; i < combined.length; i += columns) {
+        html += '<tr>';
+        for (var j = i; j < i + columns; j++) {
+          if (combined[j]) {
+            var it = combined[j];
+            html += '<td><span class="pinyin" data-sound="' + it.file + '" data-label="' + it.label + '">' + it.label + '</span></td>';
+          } else {
+            html += '<td></td>';
+          }
+        }
+        html += '</tr>';
+      }
     }
+    body.innerHTML = html;
+    body.querySelectorAll('.pinyin').forEach(attachPinyinClickListener);
+  }
+
+  /* ---------- 初期化：ハッシュ / popstate ---------- */
+  function sectionFromHash() {
+    var h = (location.hash || '').replace(/^#/, '');
+    if (h && document.getElementById(h)) return h;
+    return 'home';
+  }
+
+  // 初期表示
+  showSection(sectionFromHash());
+
+  window.addEventListener('hashchange', function () {
+    showSection(sectionFromHash());
+  });
+
+  // Escape でホームへ
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && currentSectionId !== 'home') {
+      showSection('home');
+    }
+  });
+})();
   </script>
 </body>
 </html>
